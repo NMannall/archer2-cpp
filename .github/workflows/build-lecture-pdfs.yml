@@ -16,7 +16,7 @@ jobs:
       uses: actions/checkout@v4
     
     - name: Test docker
-      run: docker run --rm -t -v ${{ github.workspace }}:/slides -v ${{ github.workspace }}/lectures/1-cpp-intro:/home/user ghcr.io/astefanutti/decktape /home/user/index.html slides.pdf
+      run: docker run --rm -t -v ${{ github.workspace }}:/slides -v ${{ github.workspace }}:/home/user ghcr.io/astefanutti/decktape /home/user/lectures/1-cpp-intro/index.html slides.pdf
 
     #- name: Generate PDFs
     #  uses: addnab/docker-run-action@v3
