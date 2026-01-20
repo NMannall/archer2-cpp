@@ -16,13 +16,10 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Install and run
+      # sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
       run: |
         npm install -g decktape
-        npm install -g http-server
-        sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
-        cd ${{ github.workspace }}/lectures
-        http-server
-        decktape remark http://localhost:8080/1-cpp-intro/index.html ${{ github.workspace }}/slides.pdf
+        decktape --chrome-arg=--disable-web-security --chrome-arg=--no-sandbox remark ${{ github.workspace }}/lectures/1-cpp-intro/index.html ${{ github.workspace }}/slides.pdf
     
     #- name: Test docker
     #  run: docker run --rm -t -v ${{ github.workspace }}:/slides -v ${{ github.workspace }}:/home/user ghcr.io/astefanutti/decktape remark /home/user/lectures/1-cpp-intro/index.html /home/user/slides.pdf
