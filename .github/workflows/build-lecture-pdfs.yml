@@ -16,14 +16,14 @@ jobs:
       uses: actions/checkout@v4
     
     - name: Test docker
-      run: docker run --rm -t -v `pwd`:/slides ghcr.io/astefanutti/decktape https://revealjs.com/demo/ slides.pdf
+      run: docker run --rm -t -v ${{ github.workspace }}:/slides -v ${{ github.workspace }}/lectures/1-cpp-intro:/home/user ghcr.io/astefanutti/decktape /home/user/index.html slides.pdf
 
-    - name: Generate PDFs
-      uses: addnab/docker-run-action@v3
-      with:
-        registry: ghcr.io
-        image: astefanutti/decktape:latest
-        options: --rm -t -v ${{ github.workspace }}:/slides -v ${{ github.workspace }}/lectures/1-cpp-intro:/home/user /home/user/index.html slides.pdf
+    #- name: Generate PDFs
+    #  uses: addnab/docker-run-action@v3
+    #  with:
+    #    registry: ghcr.io
+    #    image: astefanutti/decktape:latest
+    #    options: --rm -t -v ${{ github.workspace }}:/slides -v ${{ github.workspace }}/lectures/1-cpp-intro:/home/user /home/user/index.html slides.pdf
 
     - name: Commit and push PDFs
       run: |
