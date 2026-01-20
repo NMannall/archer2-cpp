@@ -18,6 +18,7 @@ jobs:
     - name: Install and run
       run: |
         npm install -g decktape
+        sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
         decktape remark ${{ github.workspace }}/lectures/1-cpp-intro/index.html ${{ github.workspace }}/slides.pdf
     
     #- name: Test docker
