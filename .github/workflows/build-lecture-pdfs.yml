@@ -12,7 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout repo
+      uses: actions/checkout@v4
+    
+    - name: Test docker
+      run: docker run --rm -t -v `pwd`:/slides ghcr.io/astefanutti/decktape https://revealjs.com/demo/ slides.pdf
 
     - name: Generate PDFs
       uses: addnab/docker-run-action@v3
