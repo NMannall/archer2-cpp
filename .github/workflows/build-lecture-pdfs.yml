@@ -14,9 +14,14 @@ jobs:
     steps:
     - name: Checkout repo
       uses: actions/checkout@v4
+
+    - name: Install and run
+      run: |
+        npm install decktape
+        decktape remark ${{ github.workspace }}/lectures/1-cpp-intro/index.html ${{ github.workspace }}/slides.pdf
     
-    - name: Test docker
-      run: docker run --rm -t -v ${{ github.workspace }}:/slides -v ${{ github.workspace }}:/home/user ghcr.io/astefanutti/decktape remark /home/user/lectures/1-cpp-intro/index.html /home/user/slides.pdf
+    #- name: Test docker
+    #  run: docker run --rm -t -v ${{ github.workspace }}:/slides -v ${{ github.workspace }}:/home/user ghcr.io/astefanutti/decktape remark /home/user/lectures/1-cpp-intro/index.html /home/user/slides.pdf
 
     #- name: Generate PDFs
     #  uses: addnab/docker-run-action@v3
