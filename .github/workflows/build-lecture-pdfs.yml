@@ -15,33 +15,32 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v5
 
-    - name: Cache node modules
-      id: cache-npm
-      uses: actions/cache@v4
-      env:
-        cache-name: cache-node-modules
+    - name: Get changed lectures
+      id: changed-lectures
+      uses: tj-action/changed-files@v47.0.2
       with:
-        # npm cache files are stored in `~/.npm` on Linux/macOS
-        path: ~/.npm
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
+        files: |
+          lectures/**/{README.md,index.html}
 
-    - if: ${{ steps.cache-npm.outputs.cache-hit == 'true' }}
-      name: List the state of node modules
-      continue-on-error: true
-      run: npm list
+    - if: steps.changed-lectures.outputs.any_changed == 'true'
+      name: List changed files
+      env:
+        ALL_CHANGED_FILES: ${{ steps.changed-lectures.outputs.all_changed_files }}
+      run: |
+        for file in ${ALL_CHANGED_FILES}; do
+          echo "$file was changed"
+        done
 
-    - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
+    - if: steps.changed-lectures.outputs.any_changed == 'true'
       name: Install dependencies
       run: npm install -g decktape
 
-    - name: Generate lecture slides
+    - if: steps.changed-lectures.outputs.any_changed == 'true'
+      name: Generate lecture slides
       run: decktape --chrome-arg=--disable-web-security --chrome-arg=--no-sandbox remark ${{ github.workspace }}/lectures/0-course-intro-2-days/index.html ${{ github.workspace }}/slides.pdf
     
-    - name: Commit and push PDFs
+    - if: steps.changed-lectures.outputs.any_changed == 'true'
+      name: Commit and push PDFs
       run: |
         git config --global user.name 'GitHub Actions'
         git config --global user.email 'actions@github.com'
