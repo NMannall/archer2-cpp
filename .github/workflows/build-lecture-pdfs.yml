@@ -17,7 +17,7 @@ jobs:
 
     - name: Get changed lectures
       id: changed-lectures
-      uses: tj-action/changed-files@v47.0.2
+      uses: tj-actions/changed-files@v47.0.2
       with:
         files: |
           lectures/**/{README.md,index.html}
