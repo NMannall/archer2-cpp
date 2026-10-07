@@ -4,6 +4,7 @@ Practical exercises for C++ course
 
 See each subdirectory for further instructions
 
+* [1 Hello World](1-hello-world)
 * [2.1 Class types](2.1-class-types/)
 * [2.2 Complex numbers](2.2-complex/)
 * [3 Containers](3-containers/)
