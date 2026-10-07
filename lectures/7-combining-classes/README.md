@@ -62,25 +62,26 @@ Class `Child` has data members `a` and `b`.
 The previous example everything is public but what is we want to control access 
 
 ```C++
-class Parent {
-
+class Parent
+{
 public:
-  Parent() = default;
+        Parent() = default;
 protected:
-  int a = 1;
+        int a = 1;
 };
 
-class Child : Parent {
-
+class Child : Parent
+{
 public:
-  Child() = default;
+        Child() = default;
 
-  void Print() {
-    std::cout << "a: " << a << std::endl;
-    std::cout << "b: " << b << std::endl;
-  }
+        void Print() 
+		{
+           std::cout << "a: " << a << std::endl;
+           std::cout << "b: " << b << std::endl;
+        }
 private:
-  int b = 2;
+        int b = 2;
 };
 ```
 
