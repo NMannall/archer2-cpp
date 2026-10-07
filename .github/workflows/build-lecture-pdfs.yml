@@ -19,16 +19,17 @@ jobs:
       id: changed-lectures
       uses: tj-actions/changed-files@v47.0.2
       with:
+        dir_names: true
         files: |
           lectures/**/{README.md,index.html}
 
     - if: steps.changed-lectures.outputs.any_changed == 'true'
       name: List changed files
       env:
-        ALL_CHANGED_FILES: ${{ steps.changed-lectures.outputs.all_changed_files }}
+        ALL_CHANGED_DIRS: ${{ steps.changed-lectures.outputs.all_changed_files }}
       run: |
-        for file in ${ALL_CHANGED_FILES}; do
-          echo "$file was changed"
+        for dir in ${ALL_CHANGED_DIRS}; do
+          echo "Slides in '${dir}' have changed"
         done
 
     - if: steps.changed-lectures.outputs.any_changed == 'true'
@@ -37,8 +38,13 @@ jobs:
 
     - if: steps.changed-lectures.outputs.any_changed == 'true'
       name: Generate lecture slides
-      run: decktape --chrome-arg=--disable-web-security --chrome-arg=--no-sandbox remark ${{ github.workspace }}/lectures/0-course-intro-2-days/index.html ${{ github.workspace }}/slides.pdf
-    
+      env:
+        ALL_CHANGED_DIRS: ${{ steps.changed-lectures.outputs.all_changed_files }}
+      run: |
+        for dir in ${ALL_CHANGED_DIRS}; do
+          decktape --chrome-arg=--disable-web-security --chrome-arg=--no-sandbox remark ${{ github.workspace }}/${dir}/index.html ${{ github.workspace }}/${dir}/slides.pdf
+        done
+
     - if: steps.changed-lectures.outputs.any_changed == 'true'
       name: Commit and push PDFs
       run: |
