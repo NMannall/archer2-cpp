@@ -1,10 +1,11 @@
 name: build-lecture-pdfs
 
+# Trigger on push to the main branch. This is prefered to triggering on pull
+# requests, as it prevents unnecessary repeated commits of changed slides.pdf
+# files while a pull request is being worked on.
 on:
   push:
-    branches: [ "51-generate-lecture-pdfs" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: "main"
 
 jobs:
   build:
@@ -24,7 +25,7 @@ jobs:
           lectures/**/{README.md,index.html}
 
     - if: steps.changed-lectures.outputs.any_changed == 'true'
-      name: List changed files
+      name: List changed lectures
       env:
         ALL_CHANGED_DIRS: ${{ steps.changed-lectures.outputs.all_changed_files }}
       run: |
