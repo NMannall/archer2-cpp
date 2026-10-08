@@ -19,31 +19,31 @@ void printVertices(const Element& element) {
 }
 
 /**
- * Print the properties of a triangle.
+ * Print the properties of a 2D element.
  * 
- * @param triangle The triangle to print.
+ * @param element The element to print.
  */
-void print(const std::string& name, const Triangle& triangle) {
+void print(const std::string& name, const Element2D& element) {
   std::cout << name << ": {" << std::endl;
-  std::cout << "  numVertices: " << triangle.getNumVertices() << std::endl;
-  std::cout << "  numDims: " << triangle.getNumDims() << std::endl;
-  std::cout << "  area: " << triangle.area() << std::endl;
-  printVertices(triangle);
+  std::cout << "  numVertices: " << element.getNumVertices() << std::endl;
+  std::cout << "  numDims: " << element.getNumDims() << std::endl;
+  std::cout << "  area: " << element.area() << std::endl;
+  printVertices(element);
   std::cout << "}" << std::endl;
 }
 
 /**
- * Print the properties of a tetrahedron.
+ * Print the properties of a 3D element.
  * 
- * @param tetrahedron The tetrahedron to print.
+ * @param tetrahedron The element to print.
  */
-void print(const std::string& name, const Tetrahedron& tetrahedron) {
+void print(const std::string& name, const Element3D& element) {
   std::cout << name << ": {" << std::endl;
-  std::cout << "  numVertices: " << tetrahedron.getNumVertices() << std::endl;
-  std::cout << "  numDims: " << tetrahedron.getNumDims() << std::endl;
-  std::cout << "  surfaceArea: " << tetrahedron.surfaceArea() << std::endl;
-  std::cout << "  volume: " << tetrahedron.volume() << std::endl;
-  printVertices(tetrahedron);
+  std::cout << "  numVertices: " << element.getNumVertices() << std::endl;
+  std::cout << "  numDims: " << element.getNumDims() << std::endl;
+  std::cout << "  surfaceArea: " << element.surfaceArea() << std::endl;
+  std::cout << "  volume: " << element.volume() << std::endl;
+  printVertices(element);
   std::cout << "}" << std::endl;
 }
 
@@ -53,27 +53,27 @@ int main() {
   Vertex v3 {4, 0, 0};
   Vertex v4 {0, 0, 5};
 
-  // TODO: Construct a triangle using vertices v1, v2, and v3.
-  // Triangle triangle {v1, v2, v3};
+  // TODO: Construct a 2D element using vertices v1, v2, and v3.
+  // Element2D element2d {{v1, v2, v3}};
 
   // TODO: Print:
-  //   - the number of vertices in the triangle
-  //   - the number of dimensions of the triangle
-  //   - the area of the triangle  (expected to be 6)
-  //   - the vertices of the triangle
+  //   - the number of vertices in the 2D element
+  //   - the number of dimensions of the 2D element
+  //   - the area of the 2D element  (expected to be 0)
+  //   - the vertices of the 2D element
 
-  // print("Triangle", triangle);
+  // print("2D Element", element2d);
 
 
-  // TODO: Construct a tetrahedron using vertices v1, v2, v3, and v4.
-  // Tetrahedron tetrahedron {v1, v2, v3, v4};
+  // TODO: Construct a 3D element using vertices v1, v2, v3, and v4.
+  // Element3D element3d {{v1, v2, v3, v4}};
 
   // TODO: Print:
-  //   - the number of vertices in the tetrahedron
-  //   - the number of dimensions of the tetrahedron
-  //   - the surface area of the tetrahedron  (expected to be 37.3654)
-  //   - the volume of the tetrahedron  (expected to be 10)
-  //   - the vertices of the tetrahedron
+  //   - the number of vertices in the 3D element
+  //   - the number of dimensions of the 3D element
+  //   - the surface area of the 3D element  (expected to be 0)
+  //   - the volume of the 3D element  (expected to be 0)
+  //   - the vertices of the 3D element
 
-  // print("Tetrahedron", tetrahedron);
+  // print("3D Element", element3d);
 }
